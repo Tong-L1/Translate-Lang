@@ -3,4 +3,6 @@
 
 调用百度翻译api
 
-生成zn_ch.json
+
+传入en_us.json
+生成zh_cn.json
