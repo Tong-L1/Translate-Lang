@@ -21,8 +21,8 @@ def getinen():
     count = 0
     for i in enjson:
         if i in notin:
-            jsonstr += '\t"'+i + '":"' + enjson.get(i)+'"'
-            if count < len(notin)-1:
+            jsonstr += '"' + i + '":"' + enjson.get(i).replace('"',"'") + '"'
+            if count < len(notin) - 1:
                 jsonstr += ','
             jsonstr += '\n'
             count += 1
@@ -39,5 +39,5 @@ zh.close()
 notin = getnotin()
 jsonstr = getinen()
 zn_file = open('lang/new.json', 'w', encoding='utf-8')
-zn_file.write(jsonstr)
+zn_file.write(json.loads(json.dumps(jsonstr, indent=1, ensure_ascii=False)))
 zn_file.close()
