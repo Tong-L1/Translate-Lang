@@ -50,27 +50,28 @@ def getvalue(file_json):
 
 def writezh(file_json, en, zn):
     j = 0
-    str1 = str(file_json).replace("'", '"')
-    # print(new_json)
+    str1 = str(json.dumps(file_json, indent=1, ensure_ascii=False))
+    # print(str1)
     en_len = en.__len__()
     while j < en_len:
         str1 = str1.replace(en[j], zn[j])
         j += 1
 
-    new_json = json.loads(str1)
-    # print(json.dumps(new_json, indent=en_len, ensure_ascii=False))
-    zn_file = open('lang/zn_ch.json', 'w', encoding='utf-8')
-    zn_file.write(json.dumps(new_json, indent=1, ensure_ascii=False))
+    new_json = json.loads(json.dumps(str1, indent=1, ensure_ascii=False))
+    # print(new_json)
+    # print(json.dumps(new_json, indent=1, ensure_ascii=False))
+    zn_file = open('中文json文件', 'w', encoding='utf-8')
+    zn_file.write(new_json)
     zn_file.close()
 
 
-with open('lang/en_us.json', encoding='utf-8') as a:
+with open('英文json文件', encoding='utf-8') as a:
     file_json = json.load(a)
     en = getvalue(file_json)
     zn = []
     len = len(en)
     for i in range(len):
         zn.append(translate(en[i])['trans_result'][0]['dst'])
-        print(str(i)+"/"+str(len))
+        print(str(i+1)+"/"+str(len))
     writezh(file_json, en, zn)
 
